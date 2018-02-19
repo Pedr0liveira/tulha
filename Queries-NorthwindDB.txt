@@ -6,7 +6,7 @@ FROM EMPLOYEES;
 2-
 SELECT CONTACT_NAME AS "Nome do Contacto",
        COMPANY_NAME AS "Nome da Companhia",
-       CONTACT_TITLE AS "Título do Contacto",
+       CONTACT_TITLE AS "TÃ­tulo do Contacto",
        PHONE AS "Telefone"
 FROM CUSTOMERS;
 
@@ -57,7 +57,7 @@ FROM CUSTOMERS
 WHERE FAX IS NOT NULL;
 
 9-
-SELECT FIRSTNAME AS "Nome Próprio",
+SELECT FIRSTNAME AS "Nome PrÃ³prio",
        LASTNAME AS "Apelido"
 FROM EMPLOYEES
 WHERE LASTNAME>='J'
@@ -130,7 +130,7 @@ FROM ORDERS
 WHERE FREIGHT >= 500.00;~
 
 18-
-SELECT (FIRSTNAME || ' ' || LASTNAME || ' ' || 'pode ser contactado em x' || EXTENSION) AS "Informação de contacto"
+SELECT (FIRSTNAME || ' ' || LASTNAME || ' ' || 'pode ser contactado em x' || EXTENSION) AS "InformaÃ§Ã£o de contacto"
 FROM EMPLOYEES;
 
 19-
@@ -139,7 +139,12 @@ FROM ORDER_DETAILS
 WHERE PRODUCT_ID = 3;
 
 20-
-
+SELECT PRODUCTS.PRODUCT_NAME AS "Produto",
+       SUM(ORDER_DETAILS.QUANTITY) AS "Unidades Totais"
+FROM ORDER_DETAILS
+INNER JOIN PRODUCTS ON ORDER_DETAILS.PRODUCT_ID = PRODUCTS.PRODUCT_ID
+WHERE ORDER_DETAILS.PRODUCT_ID = 3
+GROUP BY PRODUCTS.PRODUCT_NAME;
 
 
 
