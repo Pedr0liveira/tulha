@@ -127,7 +127,7 @@ SELECT 	ORDER_ID,
 	FREIGHT, 
 	(FREIGHT + 0.1*FREIGHT) AS "PORTES ACRESCIDOS"
 FROM ORDERS
-WHERE FREIGHT >= 500.00;~
+WHERE FREIGHT >= 500.00;
 
 18-
 SELECT (FIRSTNAME || ' ' || LASTNAME || ' ' || 'pode ser contactado em x' || EXTENSION) AS "Informação de contacto"
@@ -146,10 +146,54 @@ INNER JOIN PRODUCTS ON ORDER_DETAILS.PRODUCT_ID = PRODUCTS.PRODUCT_ID
 WHERE ORDER_DETAILS.PRODUCT_ID = 3
 GROUP BY PRODUCTS.PRODUCT_NAME;
 
+21-
+SELECT ROUND(AVG(UNIT_PRICE), 3)
+FROM PRODUCTS;
 
+22-
+SELECT CITY AS "Cidade",
+       COUNT(EMPLOYEE_ID) AS "Empregados"
+FROM EMPLOYEES
+GROUP BY CITY;
 
+23-
+SELECT CITY AS "Cidade",
+       "Empregados" 
+FROM
+  (SELECT CITY, COUNT(EMPLOYEE_ID) AS "Empregados"
+   FROM EMPLOYEES
+   GROUP BY CITY)
+WHERE "Empregados" > 1
+ORDER BY "Empregados" ASC;
 
+24-
+SELECT  CITY AS "Cidade",
+        "Empregados"
+FROM( 
+    SELECT  CITY,
+            COUNT(EMPLOYEE_ID) AS "Empregados"
+    FROM EMPLOYEES
+    WHERE TITLE = 'Sales Representative'
+    GROUP BY CITY)
+WHERE "Empregados" > 1
+ORDER BY "Empregados" ASC;
 
+25-
+SELECT "Empresa",
+       "Total de Encomendas"
+FROM
+  ( SELECT COMPANY_NAME AS "Empresa",
+           COUNT(ORDER_ID) AS "Total de Encomendas"
+   FROM CUSTOMERS
+   INNER JOIN ORDERS ON CUSTOMERS.CUSTOMER_ID = ORDERS.CUSTOMER_ID
+   GROUP BY COMPANY_NAME)
+WHERE "Total de Encomendas" > 15
+ORDER BY "Total de Encomendas" DESC;
+
+26-
+SELECT UNIT_PRICE AS "Preço Unitário",
+       '€' || CAST(UNIT_PRICE AS CHAR(10)) AS "Preço(cast)"
+FROM PRODUCTS;
 
 
 
